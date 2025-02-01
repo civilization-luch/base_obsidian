@@ -15,10 +15,11 @@ api_hash = os.getenv('TG_API_HASH')
 # Create a new Telegram client
 client = TelegramClient('session_name', api_id, api_hash)
 
+exported_dir = os.path.join(os.getcwd(), "_exported")
 media_dir = "medias"
 
 async def download_and_cache(message_media_photo):
-    file_path = f'{media_dir}/{message_media_photo.id}.jpg'
+    file_path = f'{os.path.join(exported_dir, media_dir)}/{message_media_photo.id}.jpg'
     if not os.path.exists(file_path):
         return await client.download_media(message_media_photo, file=file_path )
     else:
@@ -57,7 +58,7 @@ Chat Name: ВКРИЗИС.БАЗА, Chat ID: -1002233618871
                 "media_type": "photo",
                 "media_content": message.text,
                 "media_content_url": None,
-                "media_downloaded_url": f"images/{message.media.photo.id}.jpg"
+                "media_downloaded_url": f"{media_dir}/{message.media.photo.id}.jpg"
             }
             messages_data.append(message_info)
 
@@ -87,7 +88,7 @@ Chat Name: ВКРИЗИС.БАЗА, Chat ID: -1002233618871
             messages_data.append(message_info)
 
     # Записываем данные в JSON файл
-    with open('messages.json', 'w') as json_file:
+    with open(f'{exported_dir}/messages.json', 'w') as json_file:
         json.dump(messages_data, json_file, ensure_ascii=False, indent=4)
 
     await client.disconnect()

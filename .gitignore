@@ -58,9 +58,6 @@ poetry.lock
 
 
 #####
-
-medias
-documents
+_exported
 session_name.session
-messages.json
 .venv

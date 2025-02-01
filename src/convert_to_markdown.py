@@ -20,8 +20,9 @@ articles = [
     {"title": "Токеномика - Народовластие", "message_id": 100}
 ]
 
+exported_dir = os.path.join(os.getcwd(), "_exported")
 # Load messages from JSON file
-with open('messages.json', 'r', encoding='utf-8') as f:
+with open(f'{exported_dir}/messages.json', 'r', encoding='utf-8') as f:
     messages = json.load(f)
 
 # Generate markdown documents for each article
@@ -53,7 +54,7 @@ for i, article in enumerate(articles):
         # Define the filename
         filename = f"{title}.md".replace(" ", "_").replace(":", "").replace("?", "").replace("!", "")  # Clean filename
         # Create documents directory if it doesn't exist
-        documents_dir = os.path.join(os.getcwd(), 'documents')
+        documents_dir = os.path.join(exported_dir,  'documents')
         os.makedirs(documents_dir, exist_ok=True)
         filepath = os.path.join(documents_dir, filename)
         
