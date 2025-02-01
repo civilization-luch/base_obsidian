@@ -15,9 +15,10 @@ api_hash = os.getenv('TG_API_HASH')
 # Create a new Telegram client
 client = TelegramClient('session_name', api_id, api_hash)
 
+media_dir = "medias"
 
 async def download_and_cache(message_media_photo):
-    file_path = f'images/{message_media_photo.id}.jpg'
+    file_path = f'{media_dir}/{message_media_photo.id}.jpg'
     if not os.path.exists(file_path):
         return await client.download_media(message_media_photo, file=file_path )
     else:
